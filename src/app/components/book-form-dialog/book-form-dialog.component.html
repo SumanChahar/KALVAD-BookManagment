@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Add/Edit Book</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formInstance">
+    <div>
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Book Title *</mat-label>
+        <input matInput type="text" name="title" formControlName="title">
+         <mat-error *ngIf="formInstance.controls['title'].errors && formInstance.controls['title'].errors['required']">Title required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="mt-5">
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Year *</mat-label>
+        <input matInput type="number" name="year" formControlName="year" />
+        <mat-error *ngIf="formInstance.controls['year'].errors &&  formInstance.controls['year'].errors['required']">Year required
+        </mat-error>
+         <mat-error *ngIf="formInstance.controls['year'].errors && (formInstance.controls['year'].errors['min'] ||
+                          formInstance.controls['year'].errors['max'])">
+                        Year must be between {{minYear}} and {{maxYear}}
+        </mat-error> 
+        
+      </mat-form-field>
+    </div>
+    <div class="mt-5">
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Author *</mat-label>
+        <input matInput type="text" name="author" formControlName="author">
+         <mat-error *ngIf="formInstance.controls['author'].errors &&  
+         formInstance.controls['author'].errors['required']">Author required</mat-error> 
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div class="mt-5" mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="formInstance.invalid || formInstance.errors" 
+  (click)=save() cdkFocusInitial>Yes</button>
+  <button mat-raised-button mat-dialog-close>No</button>
+</div>
